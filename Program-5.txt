@@ -1,0 +1,112 @@
+Design, Develop and Implement a menu driven Program in C for the following
+operations on Circular QUEUE of integers (Array Implementation of Queue with maximum size MAX)
+a. Insert an Element on to Circular QUEUE
+b. Delete an Element from Circular QUEUE
+c. Demonstrate Overflow and Underflow situations on Circular QUEUE
+d. Display the status of Circular QUEUE
+e. Exit
+Support the program with appropriate functions for each of the above operations.
+
+#include<stdio.h>
+#include<conio.h>
+#define MAX 3
+
+int q[MAX];
+int front=0,rear=-1,te=0;
+
+void cqinsert();
+void cqdelete();
+void cqdisplay();
+
+void main()
+{
+    int ch;
+    for(;;)
+	{
+		printf("\n\n\t\t****Circular Queue of Integers****\n\n");
+		printf(" \n1.CQ Insert\n2.CQ Delete\n3.CQ Display\n4.Exit\n");
+		printf("\n Enter Your Choice \n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:cqinsert();
+                    		break;
+			case 2:cqdelete();
+                    		break;
+			case 3:cqdisplay();
+                    		break;
+			case 4:exit(0);
+                    		break;
+			default:
+				printf("Invalid Choice!");
+		}
+	}
+
+}
+
+void cqinsert()
+{
+	int elem;
+	printf("\n\n\n***Enqueue Operation***\n\n");
+	printf("Enter the element to be inserted to the circular queue \n");
+    	scanf("%d",&elem);
+	if(te==MAX)
+   	{
+        	printf(" \n Circula Queue Overflow ! \n");
+       	 	return;
+    	}
+	else
+	{
+            	rear=(rear+1)%MAX;
+		q[rear]=elem;
+		te=te+1;
+		printf("\nAfter Insertion:Rear is at %d\n", rear);
+	}
+}
+
+
+void cqdisplay()
+{
+	int i;
+	if(te==0)
+    	{
+		printf("\n\nCircular Queue is empty \n");
+		return;
+    	}
+	else
+	{
+		for(i=front;i!=rear;i=(i+1)%MAX)
+		{
+			printf("\tq[%d]=%d \n",i,q[i]);
+		}
+        	printf("\tq[%d]=%d \n",i, q[i]);
+	}
+}
+
+
+void cqdelete()
+{
+	int elem;
+	if(te==0)
+    	{
+        	printf("\n\nCircular Queue is Empty!\n\n");
+        	return;
+    	}
+    	else
+	{
+	    	printf("\n\n\n***Dequeue Operation***\n\n");
+		elem=q[front];
+		printf(" \nElement deleted from the CQ is '%d' at pos=%d \n",elem,front);
+		front=(front+1)%MAX;
+        	te=te-1;
+		if(front==rear)
+        	{
+            		front=0;
+            		rear=-1;
+        	}
+        	printf("\nAfter Deletion: Front is at %d", front);
+    	}
+}
+
+
+
